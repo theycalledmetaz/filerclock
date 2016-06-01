@@ -3,7 +3,7 @@
 
 // May 19 2016
 // Designed for Arduino Uno/Leonardo + Adafruit RGB shield
-// DS1307 RTC 
+// DS1307 RTC
 
 // June 1 2016 -- Version 1.1.1
 
@@ -52,20 +52,20 @@ void countDown(int from)
     delay(1000);
   }
   lcd.clear();
-  lcd.setCursor(0,1);
+  lcd.setCursor(0, 1);
   lcd.print("BOOOOOOOM!");
   delay(1000);
-  
+
 }
 
-void triggerReboot() 
+void triggerReboot()
 {
   Serial.println("triggerReboot called");
-  Serial.flush();  
+  Serial.flush();
   delay(1000);
-  cli();               // clear interrupts   
+  cli();               // clear interrupts
   wdt_enable(WDTO_15MS);     // enable WDT
-  while(1);         // enter infinite loop, watch-dog saves our ass
+  while (1);        // enter infinite loop, watch-dog saves our ass
 }
 
 
@@ -171,7 +171,7 @@ void setup() {
   lcd.clear();
   lcd.setBacklight(defaultColor);
   lcd.print("DATA ONCRAP");
-  lcd.setCursor(0,1);
+  lcd.setCursor(0, 1);
   lcd.print("BOOT");
   delay(2000);
 
@@ -183,14 +183,14 @@ void setup() {
     lcd.print("RTC missing!");
     while (1);
   }
-  
+
   //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
 
   if (! rtc.isrunning()) {
     Serial.println("RTC is NOT running!");
 
     rtcFailed = true;
-    
+
     // set date-time to when the sketch was compiled
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
 
@@ -202,7 +202,7 @@ void setup() {
     lcd.clear();
     lcd.print("RTC FAILURE");
     delay(15000);
-    
+
   }
 
   helloWorld();
@@ -215,24 +215,25 @@ void loop() {
   long currentTime = millis();
 
   if ( currentTime > 43200000 )
-  { 
+  {
     Serial.println( currentTime );
     Serial.println("Timer indicates system has been running 12 hours. Reboot.");
-    countDown(9); 
+    countDown(9);
     triggerReboot();
   }
-    
+
   if ( eventCount == 60 ) // cycle between datetime and messages
   {
     helloWorld();
 
     eventCount = 0;
-    
+
   } else {
     printCurrentTime();
 
-    printTimeNow();
-    
+    // Print the current time over Serial. use for debugging
+    //  printTimeNow();
+
     delay(refreshDelay);
 
     eventCount++;
