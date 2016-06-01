@@ -1,11 +1,11 @@
 // Aaron's Filer Clock
-// aaron ( at ) brodney ( dot ) net 
+// aaron ( at ) brodney ( dot ) net
 
 // May 19 2016
 // Designed for Arduino Uno/Leonardo + Adafruit RGB shield
 // DS1307 RTC 
 
-// Version 1.1 - June 1 2016
+// June 1 2016 -- Version 1.1.1
 
 #include <Wire.h>
 #include <Adafruit_MCP23017.h>
@@ -28,7 +28,7 @@ int eventCount = 0;
 
 byte defaultColor = WHITE;
 
-char daysOfTheWeek[7][12] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+char daysOfTheWeek[7][4] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
 const long refreshDelay = 900;
 
